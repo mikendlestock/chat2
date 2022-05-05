@@ -32,7 +32,6 @@ public class Client {
 
         var scannerName = new Scanner(System.in);
         System.out.println("Введите имя");
-
         var name = scannerName.nextLine();
         thread.start();
         while (true) {

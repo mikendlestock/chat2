@@ -20,7 +20,6 @@ public class CommandProcessorDispatcher {
         for (String s : commandProcessorMap.keySet()) {
             if (message.getType().equals(s)) {
                 var commandProcessor = commandProcessorMap.get(s);
-                System.out.println("start working type processor: " + s);
                 return commandProcessor.process(writer, messages, message);
             }
         }

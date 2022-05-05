@@ -21,9 +21,8 @@ public class Server {
         List<Message> messagesList = new ArrayList<>();
 
         while (true) {
-            count++;
             var clientSocket = serverSocket.accept();
-            System.out.println("----- client accepted: " + (++count));
+
             var writer = new BufferedWriter(
                     new OutputStreamWriter(
                             clientSocket.getOutputStream()));
@@ -34,6 +33,9 @@ public class Server {
 
             var request = reader.readLine();
             var message = mapper.readValue(request, Message.class);
+            if (message.getType().equals("SEND")) {
+                System.out.println("----- client with message accepted: " + (++count));
+            }
             var dispatcher = new CommandProcessorDispatcher();
 
             dispatcher.processCommand(message, messagesList, writer);

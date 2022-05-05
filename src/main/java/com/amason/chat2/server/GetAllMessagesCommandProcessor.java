@@ -17,8 +17,6 @@ public class GetAllMessagesCommandProcessor implements CommandProcessor {
                     .filter(mes->mes.getDateAndTimeMilliSec() > message.getDateAndTimeMilliSec())
                     .collect(Collectors.toList());
 
-            System.out.println("listWith new Messages " + listWithNewMessagesForSend);
-
             var messagesSB = new StringBuilder();
 
             for (Message m : listWithNewMessagesForSend) {
