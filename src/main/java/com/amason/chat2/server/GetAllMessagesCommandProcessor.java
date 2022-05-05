@@ -14,7 +14,6 @@ public class GetAllMessagesCommandProcessor implements CommandProcessor {
     public String process(BufferedWriter writer, List<Message> messagesList, Message message) {
         try {
             var listWithNewMessagesForSend = messagesList.stream()
-                    .peek(x-> System.out.println("mes time - " + x.getDateAndTimeMilliSec()  + "\n" + "message time - " + message.getDateAndTimeMilliSec()))
                     .filter(mes->mes.getDateAndTimeMilliSec() > message.getDateAndTimeMilliSec())
                     .collect(Collectors.toList());
 
