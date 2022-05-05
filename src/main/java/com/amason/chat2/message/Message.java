@@ -1,10 +1,8 @@
 package com.amason.chat2.message;
 
-import java.math.BigInteger;
-
 public class Message {
     private String text;
-    private BigInteger dateAndTimeMilliSec;
+    private Long dateAndTimeMilliSec;
     private String name;
     private String type;
 
@@ -16,11 +14,11 @@ public class Message {
         this.text = text;
     }
 
-    public BigInteger getDateAndTimeMilliSec() {
+    public Long getDateAndTimeMilliSec() {
         return dateAndTimeMilliSec;
     }
 
-    public void setDateAndTimeMilliSec(BigInteger date) {
+    public void setDateAndTimeMilliSec(Long date) {
         this.dateAndTimeMilliSec = date;
     }
 
