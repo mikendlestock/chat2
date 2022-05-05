@@ -16,6 +16,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Client {
+    //add message
 
     static List<String> messages = new ArrayList<>();
 
