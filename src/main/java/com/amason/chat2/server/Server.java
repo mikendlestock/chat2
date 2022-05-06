@@ -31,14 +31,17 @@ public class Server {
                     new InputStreamReader(
                             clientSocket.getInputStream()));
 
-            var request = reader.readLine();
-            var message = mapper.readValue(request, Message.class);
+            var messageJson = reader.readLine();
+            var message = mapper.readValue(messageJson, Message.class);
             if (message.getType().equals("SEND")) {
                 System.out.println("----- client with message accepted: " + (++count));
             }
             var dispatcher = new CommandProcessorDispatcher();
 
             dispatcher.processCommand(message, messagesList, writer);
+            writer.newLine();
+            writer.flush();
+            writer.close();
             reader.close();
             clientSocket.close();
         }
