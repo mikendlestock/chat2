@@ -3,18 +3,16 @@ package com.amason.chat2.server;
 import com.amason.chat2.message.Message;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class GetAllMessagesCommandProcessor implements CommandProcessor {
     private static final String SEPARATOR = ": ";
 
     @Override
-    public String process(BufferedWriter writer, List<Message> messagesList, Message message) {
+    public String process(BufferedWriter writer, MessageDatabase messageDatabase, Message message) {
 
         try {
-            var newMessagesAsString = findNewMessagesAsString(messagesList, message);
+            var newMessagesAsString = findNewMessagesAsString(messageDatabase, message);
             writer.write(newMessagesAsString);
             return "ok";
         } catch (IOException e) {
@@ -22,8 +20,8 @@ public class GetAllMessagesCommandProcessor implements CommandProcessor {
         }
     }
 
-    private String findNewMessagesAsString(List<Message> messagesList, Message message) {
-        var listWithNewMessagesForSend = messagesList.stream()
+    private String findNewMessagesAsString(MessageDatabase messageDatabase, Message message) {
+        var listWithNewMessagesForSend = messageDatabase.getMessageList().stream()
                 .filter(mes->mes.getDateAndTimeMilliSec() > message.getDateAndTimeMilliSec())
                 .collect(Collectors.toList());
 

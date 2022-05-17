@@ -8,8 +8,6 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Server {
     public static void main(String[] args) throws Exception {
@@ -18,7 +16,8 @@ public class Server {
         var mapper = new ObjectMapper();
         int count = 0;
         var serverSocket = new ServerSocket(8000);
-        List<Message> messagesList = new ArrayList<>();
+
+        var messageDatabase  = MessageDatabase.INSTANCE;
 
         while (true) {
             var clientSocket = serverSocket.accept();
@@ -34,11 +33,12 @@ public class Server {
             var messageJson = reader.readLine();
             var message = mapper.readValue(messageJson, Message.class);
             if (message.getType().equals("SEND")) {
-                System.out.println("----- client with message accepted: " + (++count));
+                System.out.println(++ count + " -----accepted__ client: " + message.getName() + " with message: " + message.getText());
             }
             var dispatcher = new CommandProcessorDispatcher();
 
-            dispatcher.processCommand(message, messagesList, writer);
+            dispatcher.processCommand(message, messageDatabase, writer);
+
             writer.newLine();
             writer.flush();
             writer.close();

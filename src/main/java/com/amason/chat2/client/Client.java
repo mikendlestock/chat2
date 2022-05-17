@@ -9,8 +9,6 @@ import java.net.Socket;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -95,6 +93,7 @@ public class Client {
                 writer.write(messageJson);
 
                 lastUpdate = updated;
+
                 writer.newLine();
                 writer.flush();
                 var response = reader.lines().collect(Collectors.joining(System.lineSeparator()));

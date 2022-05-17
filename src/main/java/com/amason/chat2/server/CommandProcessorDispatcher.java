@@ -3,7 +3,6 @@ package com.amason.chat2.server;
 import com.amason.chat2.message.Message;
 
 import java.io.BufferedWriter;
-import java.util.List;
 import java.util.Map;
 
 public class CommandProcessorDispatcher {
@@ -15,7 +14,7 @@ public class CommandProcessorDispatcher {
             SEND, new SaveMessagesCommandProcessor()
     );
 
-    public String processCommand(Message message, List<Message> messages, BufferedWriter writer) {
+    public String processCommand(Message message, MessageDatabase messages, BufferedWriter writer) {
         for (String s : commandProcessorMap.keySet()) {
             if (message.getType().equals(s)) {
                 var commandProcessor = commandProcessorMap.get(s);
