@@ -1,7 +1,8 @@
 package com.amason.chat2.server;
 
+import com.amason.chat2.message.Message;
+
 import java.io.BufferedWriter;
-import java.net.Socket;
 import java.util.Map;
 
 public class CommandProcessorDispatcher {
@@ -13,11 +14,11 @@ public class CommandProcessorDispatcher {
             SEND, new SaveMessagesCommandProcessor()
     );
 
-    public String processCommand(String command, StringBuilder messages, BufferedWriter writer) {
+    public String processCommand(Message message, MessageDatabase messages, BufferedWriter writer) {
         for (String s : commandProcessorMap.keySet()) {
-            if (command.startsWith(s)) {
+            if (message.getType().equals(s)) {
                 var commandProcessor = commandProcessorMap.get(s);
-                return commandProcessor.process(writer, messages, command);
+                return commandProcessor.process(writer, messages, message);
             }
         }
         throw new RuntimeException("Command not found");
