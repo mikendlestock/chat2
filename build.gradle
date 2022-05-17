@@ -1,8 +1,9 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.7'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+//    id 'org.springframework.boot' version '2.6.7'
+//    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
-    id 'war'
+//    id 'war'
+
 }
 
 group = 'com.amason'
@@ -14,14 +15,34 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.13.0'
 
 }
-
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'com.amason.chat2.server.Server'
+//    }
+//}
+//
+//// Include dependent libraries in archive.
+//mainClassName = "com.company.application.Main"
+
+
+task customFatJar(type: Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes 'Main-Class': "com.amason.chat2.client.Client"
+    }
+    baseName = 'CLIENT_EXTERNAL_IP-jar'
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }

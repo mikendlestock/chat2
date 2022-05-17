@@ -15,7 +15,6 @@ public class GetAllMessagesCommandProcessor implements CommandProcessor {
 
         try {
             var newMessagesAsString = findNewMessagesAsString(messagesList, message);
-            System.out.println("meesages from server: " + newMessagesAsString);
             writer.write(newMessagesAsString);
             return "ok";
         } catch (IOException e) {
@@ -25,7 +24,6 @@ public class GetAllMessagesCommandProcessor implements CommandProcessor {
 
     private String findNewMessagesAsString(List<Message> messagesList, Message message) {
         var listWithNewMessagesForSend = messagesList.stream()
-                .peek(x-> System.out.println("mes sek: "+ x.getDateAndTimeMilliSec() + "\nmessage sek: " + message.getDateAndTimeMilliSec()))
                 .filter(mes->mes.getDateAndTimeMilliSec() > message.getDateAndTimeMilliSec())
                 .collect(Collectors.toList());
 
